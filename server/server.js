@@ -32,6 +32,14 @@ app.post('/users', (req,res)=>{
     })
 })
 
+app.get('/todos', (req, res)=>{
+    Todo.find().then((todos)=>{
+        res.send({todos})
+    }, (error)=>{
+        res.send(error);
+    })
+})
+
 app.listen(3000);
 
 module.exports = {app};
