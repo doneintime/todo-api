@@ -10,15 +10,14 @@ var app = express();
 app.use(bodyParser.json());
 
 app.post('/todos', (req, res)=>{
-    console.log(req.body);
     var todo = new Todo({
-        text: "Hello from todo"
+        text: req.body.text
     });
 
     todo.save().then((doc)=>{
         res.send(doc);
-    }, (err)=>{
-        console.log("can't add todo");
+    }, (e)=>{
+        res.status(400).send(e);
     })
 })
 
@@ -29,11 +28,13 @@ app.post('/users', (req,res)=>{
     user.save().then((usr)=>{
         res.send(usr);
     }, (e)=>{
-        console.log(e);
+        res.status(400).send(e);
     })
 })
 
 app.listen(3000);
+
+module.exports = {app};
 // var newTodo = new Todo({
 //     text: "Do 15 Node.js lessons"
 // });
