@@ -8,6 +8,7 @@ const {Todo} = require('./models/todo');
 
 
 var app = express();
+var port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 
 app.post('/todos', (req, res)=>{
@@ -70,7 +71,7 @@ app.get('/todos/:id', (req, res)=>{
     }).catch((e)=>res.send(e));
 })
 
-app.listen(3000);
+app.listen(port);
 
 module.exports = {app};
 // var newTodo = new Todo({
