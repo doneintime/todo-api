@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const {mongoose} = require('./db/mongoose');
+const {ObjectID} = require('mongodb');
 const {User} = require('./models/user');
 const {Todo} = require('./models/todo');
 
@@ -39,6 +40,21 @@ app.get('/todos', (req, res)=>{
         res.send(error);
     })
 })
+
+app.get('/users/:id', (req,res)=>{
+    var id = req.params.id;
+
+    if(!ObjectID.isValid(id)){
+        return res.status(404).send;
+    }
+
+    User.findById(id).then((found)=>{
+        if(!found){
+            return res.status(404).send();
+        }
+        return res.send(JSON.stringify(found, undefined,2));
+    }).catch((e) => console.log(e))
+});
 
 app.listen(3000);
 
