@@ -6,7 +6,7 @@ mongoose.Promise = global.Promise;
 //     mlab: 'mongodb://admin:a12345@ds219832.mlab.com:19832/tododb'
 //   };
   
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/TodoApp'); 
+mongoose.connect(process.env.MONGODB_URI); 
 
 
 module.exports = { mongoose }; 
