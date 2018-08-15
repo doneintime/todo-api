@@ -8,6 +8,7 @@ const {mongoose} = require('./db/mongoose');
 const {ObjectID} = require('mongodb');
 const {User} = require('./models/user');
 const {Todo} = require('./models/todo');
+const {authenticate} = require('./middleware/authenticate');
 
 
 var app = express();
@@ -36,6 +37,11 @@ app.post('/users', (req,res)=>{
     }).catch((e)=>{
         res.status(400).send();
     })
+})
+
+
+app.get('/users/me', authenticate, (req, res)=>{
+    res.send(req.user);
 })
 
 app.get('/todos', (req, res)=>{
